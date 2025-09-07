@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelas 8H - Website Resmi</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Kelas 8H</h2>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#struktur" class="nav-link">Struktur Kelas</a>
+                <a href="#anggota" class="nav-link">Anggota Kelas</a>
+                <a href="#piket" class="nav-link">Jadwal Piket</a>
+                <a href="#pelajaran" class="nav-link">Jadwal Pelajaran</a>
+                <a href="#pengumuman" class="nav-link">Pengumuman</a>
+                <a href="#" class="nav-link admin-btn" onclick="showAdminLogin()">Admin</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="section animate-on-scroll">
+        <div class="container">
+            <div class="hero">
+                <h1 class="animate-fade-up">Selamat Datang di Website Kelas 8H</h1>
+                <p class="animate-fade-up delay-1">Portal informasi lengkap untuk siswa-siswi kelas 8H</p>
+                <div class="hero-stats animate-fade-up delay-2">
+                    <div class="stat animate-scale delay-3">
+                        <h3 id="total-siswa">0</h3>
+                        <p>Total Siswa</p>
+                    </div>
+                    <div class="stat animate-scale delay-4">
+                        <h3 id="total-pengumuman">0</h3>
+                        <p>Pengumuman</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Struktur Kelas Section -->
+    <section id="struktur" class="section animate-on-scroll">
+        <div class="container">
+            <h2 class="section-title animate-fade-up">Struktur Kelas</h2>
+            <div class="struktur-grid animate-fade-up delay-1" id="struktur-grid">
+                <!-- Struktur akan dimuat dari localStorage -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Anggota Kelas Section -->
+    <section id="anggota" class="section animate-on-scroll">
+        <div class="container">
+            <h2 class="section-title animate-fade-up">Anggota Kelas</h2>
+            <div class="search-box animate-fade-up delay-1">
+                <input type="text" id="search-anggota" placeholder="Cari anggota kelas...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="anggota-grid animate-fade-up delay-2" id="anggota-grid">
+                <!-- Anggota akan dimuat dari localStorage -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Jadwal Piket Section -->
+    <section id="piket" class="section animate-on-scroll">
+        <div class="container">
+            <h2 class="section-title animate-fade-up">Jadwal Piket</h2>
+            <div class="jadwal-container animate-fade-up delay-1" id="piket-container">
+                <!-- Jadwal piket akan dimuat dari localStorage -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Jadwal Pelajaran Section -->
+    <section id="pelajaran" class="section animate-on-scroll">
+        <div class="container">
+            <h2 class="section-title animate-fade-up">Jadwal Pelajaran</h2>
+            <div class="jadwal-container animate-fade-up delay-1" id="pelajaran-container">
+                <!-- Jadwal pelajaran akan dimuat dari localStorage -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Pengumuman Section -->
+    <section id="pengumuman" class="section animate-on-scroll">
+        <div class="container">
+            <h2 class="section-title animate-fade-up">Pengumuman</h2>
+            <div class="pengumuman-container animate-fade-up delay-1" id="pengumuman-container">
+                <!-- Pengumuman akan dimuat dari localStorage -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Login Modal -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAdminLogin()">&times;</span>
+            <h2>Login Admin</h2>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="admin-panel">
+        <div class="admin-header">
+            <h2>Panel Admin - Kelas 8H</h2>
+            <button onclick="logout()" class="logout-btn">Logout</button>
+        </div>
+        
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="showTab('struktur-tab')">Struktur Kelas</button>
+            <button class="tab-btn" onclick="showTab('anggota-tab')">Anggota Kelas</button>
+            <button class="tab-btn" onclick="showTab('piket-tab')">Jadwal Piket</button>
+            <button class="tab-btn" onclick="showTab('pelajaran-tab')">Jadwal Pelajaran</button>
+            <button class="tab-btn" onclick="showTab('pengumuman-tab')">Pengumuman</button>
+        </div>
+
+        <!-- Struktur Kelas Tab -->
+        <div id="struktur-tab" class="tab-content active">
+            <h3>Kelola Struktur Kelas</h3>
+            <form id="struktur-form" class="admin-form">
+                <input type="hidden" id="struktur-id">
+                <div class="form-group">
+                    <label for="struktur-jabatan">Jabatan:</label>
+                    <input type="text" id="struktur-jabatan" required>
+                </div>
+                <div class="form-group">
+                    <label for="struktur-nama">Nama:</label>
+                    <input type="text" id="struktur-nama" required>
+                </div>
+                <div class="form-group">
+                    <label for="struktur-foto">Foto:</label>
+                    <input type="file" id="struktur-foto" accept="image/*">
+                </div>
+                <button type="submit">Tambah/Update Struktur</button>
+            </form>
+            <div class="admin-list" id="admin-struktur-list"></div>
+        </div>
+
+        <!-- Anggota Kelas Tab -->
+        <div id="anggota-tab" class="tab-content">
+            <h3>Kelola Anggota Kelas</h3>
+            <form id="anggota-form" class="admin-form">
+                <input type="hidden" id="anggota-id">
+                <div class="form-group">
+                    <label for="anggota-nama">Nama:</label>
+                    <input type="text" id="anggota-nama" required>
+                </div>
+                <div class="form-group">
+                    <label for="anggota-nis">NIS:</label>
+                    <input type="text" id="anggota-nis" required>
+                </div>
+                <div class="form-group">
+                    <label for="anggota-foto">Foto:</label>
+                    <input type="file" id="anggota-foto" accept="image/*">
+                </div>
+                <button type="submit">Tambah/Update Anggota</button>
+            </form>
+            <button onclick="deleteAllMembers()" class="delete-all-btn">Hapus Semua Anggota</button>
+            <div class="admin-list" id="admin-anggota-list"></div>
+        </div>
+
+        <!-- Jadwal Piket Tab -->
+        <div id="piket-tab" class="tab-content">
+            <h3>Kelola Jadwal Piket</h3>
+            <form id="piket-form" class="admin-form">
+                <input type="hidden" id="piket-id">
+                <div class="form-group">
+                    <label for="piket-hari">Hari:</label>
+                    <select id="piket-hari" required>
+                        <option value="">Pilih Hari</option>
+                        <option value="Senin">Senin</option>
+                        <option value="Selasa">Selasa</option>
+                        <option value="Rabu">Rabu</option>
+                        <option value="Kamis">Kamis</option>
+                        <option value="Jumat">Jumat</option>
+                        <option value="Sabtu">Sabtu</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="piket-petugas">Petugas (pisahkan dengan koma):</label>
+                    <textarea id="piket-petugas" required></textarea>
+                </div>
+                <button type="submit">Tambah/Update Piket</button>
+            </form>
+            <div class="admin-list" id="admin-piket-list"></div>
+        </div>
+
+        <!-- Jadwal Pelajaran Tab -->
+        <div id="pelajaran-tab" class="tab-content">
+            <h3>Kelola Jadwal Pelajaran</h3>
+            <form id="pelajaran-form" class="admin-form">
+                <input type="hidden" id="pelajaran-id">
+                <div class="form-group">
+                    <label for="pelajaran-hari">Hari:</label>
+                    <select id="pelajaran-hari" required>
+                        <option value="">Pilih Hari</option>
+                        <option value="Senin">Senin</option>
+                        <option value="Selasa">Selasa</option>
+                        <option value="Rabu">Rabu</option>
+                        <option value="Kamis">Kamis</option>
+                        <option value="Jumat">Jumat</option>
+                        <option value="Sabtu">Sabtu</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pelajaran-jam">Jam:</label>
+                    <input type="text" id="pelajaran-jam" placeholder="08:00 - 09:30" required>
+                </div>
+                <div class="form-group">
+                    <label for="pelajaran-mata">Mata Pelajaran:</label>
+                    <input type="text" id="pelajaran-mata" required>
+                </div>
+                <div class="form-group">
+                    <label for="pelajaran-guru">Guru:</label>
+                    <input type="text" id="pelajaran-guru" required>
+                </div>
+                <button type="submit">Tambah/Update Pelajaran</button>
+            </form>
+            <div class="admin-list" id="admin-pelajaran-list"></div>
+        </div>
+
+        <!-- Pengumuman Tab -->
+        <div id="pengumuman-tab" class="tab-content">
+            <h3>Kelola Pengumuman</h3>
+            <form id="pengumuman-form" class="admin-form">
+                <input type="hidden" id="pengumuman-id">
+                <div class="form-group">
+                    <label for="pengumuman-judul">Judul:</label>
+                    <input type="text" id="pengumuman-judul" required>
+                </div>
+                <div class="form-group">
+                    <label for="pengumuman-isi">Isi Pengumuman:</label>
+                    <textarea id="pengumuman-isi" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="pengumuman-tanggal">Tanggal:</label>
+                    <input type="date" id="pengumuman-tanggal" required>
+                </div>
+                <button type="submit">Tambah/Update Pengumuman</button>
+            </form>
+            <div class="admin-list" id="admin-pengumuman-list"></div>
+        </div>
+    </div>
+
+    <!-- Floating Theme Toggle Button -->
+    <button id="theme-toggle" class="floating-theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+        <i class="fas fa-moon" id="theme-icon"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
