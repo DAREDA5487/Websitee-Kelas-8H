@@ -147,8 +147,8 @@ Website ini kompatibel dengan:
 
 ## Lisensi
 
-Project ini dibuat untuk keperluan edukasi dan dapat digunakan secara bebas.
+Project ini dibuat oleh DAREDA5487 dan untuk keperluan edukasi serta dapat digunakan secara bebas.
 
 ---
 
-**Dibuat dengan ❤️ untuk Kelas 8H**
+**Dibuat dengan ❤️ untuk Kalian semua**
